@@ -1,0 +1,40 @@
+{
+  "name": "btc-rates",
+  "description": "Bitcoin currency exchange service & API",
+  "author": "isocolsky",
+  "version": "0.0.1",
+  "keywords": [
+    "bitcoin",
+    "rates",
+    "conversion",
+    "currency"
+  ],
+  "repository": {
+    "url": "git@github.com:isocolsky/btc-rates.git",
+    "type": "git"
+  },
+  "bugs": {
+    "url": "https://github.com/isocolsky/btc-rates/issues"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "lodash": "^2.4.1",
+    "preconditions": "^1.0.7",
+    "request": "^2.48.0",
+    "commander": "^2.1.0",
+    "express": "^4.10.0",
+    "leveldown": "^0.10.0",
+    "levelup": "^0.19.0",
+    "npmlog": "^0.1.1"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.18.2",
+    "sinon": "^1.10.3",
+    "memdown": "^1.0.0"
+  },
+  "scripts": {
+    "fetch": "node fetch.js",
+    "start": "node server.js"
+  }
+}
