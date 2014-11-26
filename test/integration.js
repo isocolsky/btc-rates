@@ -31,7 +31,7 @@ describe('Rates service', function() {
       rates.getRate('bitpay', 'USD', 10, function(err, res) {
         should.not.exist(err);
         should.exist(res);
-        res.should.equal(123.45);
+        res.rate.should.equal(123.45);
         done();
       });
     });
@@ -46,7 +46,7 @@ describe('Rates service', function() {
         value: 200.00,
       }]);
       rates.getRate('bitpay', 'USD', 25, function(err, res) {
-        res.should.equal(200.00);
+        res.rate.should.equal(200.00);
         done();
       });
     });
@@ -61,7 +61,7 @@ describe('Rates service', function() {
         value: 200.00,
       }]);
       rates.getRate('bitpay', 'USD', 10, function(err, res) {
-        should.not.exist(res);
+        should.not.exist(res.rate);
         done();
       });
     });
@@ -76,7 +76,7 @@ describe('Rates service', function() {
         value: 200.00,
       }]);
       rates.getRate('bitpay', 'USD', 12, function(err, res) {
-        res.should.equal(123.45);
+        res.rate.should.equal(123.45);
         done();
       });
     });
@@ -91,7 +91,7 @@ describe('Rates service', function() {
         value: 200.00,
       }]);
       rates.getRate('bitpay', 'EUR', 12, function(err, res) {
-        res.should.equal(200.00);
+        res.rate.should.equal(200.00);
         done();
       });
     });
@@ -121,7 +121,7 @@ describe('Rates service', function() {
         key: 'bitpay-USD-30',
         value: 400.00,
       }]);
-      rates.getRates('bitpay', 'USD', [10, 20, 35], function(err, res) {
+      rates.getRate('bitpay', 'USD', [10, 20, 35], function(err, res) {
         should.not.exist(err);
         should.exist(res);
         res.length.should.equal(3);
