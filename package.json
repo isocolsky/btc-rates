@@ -34,7 +34,6 @@
     "memdown": "^1.0.0"
   },
   "scripts": {
-    "fetch": "node fetch.js",
-    "start": "node server.js"
+    "start": "node app.js"
   }
 }

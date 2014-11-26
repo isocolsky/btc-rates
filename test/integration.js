@@ -97,6 +97,45 @@ describe('Rates service', function() {
     });
   });
 
+  describe('#getRates', function() {
+    beforeEach(function() {
+      rates = new Rates({
+        db: db,
+      });
+    });
+    it('should get multiple rates', function(done) {
+      db.batch([{
+        type: 'put',
+        key: 'bitpay-USD-10',
+        value: 100.00,
+      }, {
+        type: 'put',
+        key: 'bitpay-USD-20',
+        value: 200.00,
+      }, {
+        type: 'put',
+        key: 'bitstamp-USD-30',
+        value: 300.00,
+      }, {
+        type: 'put',
+        key: 'bitpay-USD-30',
+        value: 400.00,
+      }]);
+      rates.getRates('bitpay', 'USD', [10, 20, 35], function(err, res) {
+        should.not.exist(err);
+        should.exist(res);
+        res.length.should.equal(3);
+        res[0].ts.should.equal(10);
+        res[1].ts.should.equal(20);
+        res[2].ts.should.equal(35);
+        res[0].rate.should.equal(100.00);
+        res[1].rate.should.equal(200.00);
+        res[2].rate.should.equal(400.00);
+        done();
+      });
+    });
+  });
+
   describe('#fetch', function() {
     it('should fetch from all sources', function(done) {
       var sources = [];
@@ -153,7 +192,9 @@ describe('Rates service', function() {
 
         var result = [];
         db.readStream()
-          .on('data', function (data) { result.push(data); })
+          .on('data', function(data) {
+            result.push(data);
+          })
           .on('close', function() {
             result.length.should.equal(3);
             result[0].key.should.equal('id1-EUR-1400000000');
@@ -215,7 +256,9 @@ describe('Rates service', function() {
 
         var result = [];
         db.readStream()
-          .on('data', function (data) { result.push(data); })
+          .on('data', function(data) {
+            result.push(data);
+          })
           .on('close', function() {
             result.length.should.equal(1);
             result[0].key.should.equal('id2-USD-1400000000');
