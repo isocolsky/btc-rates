@@ -26,6 +26,22 @@ function returnError(error, res) {
 };
 
 var app = express();
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+  next();
+});
+var allowCORS = function(req, res, next) {
+  if ('OPTIONS' == req.method) {
+    res.send(200);
+    res.end();
+    return;
+  }
+  next();
+}
+app.use(allowCORS);
+
 var port = process.env.RATES_PORT || 3001;
 var router = express.Router();
 
